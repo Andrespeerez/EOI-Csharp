@@ -1,0 +1,17 @@
+# crear proyecto
+dotnet new mvc --language 'C#' --name 'DemoMVC' --framework 'NET7.0' --output .
+
+# cargar nuevas dependencias y librerias
+dotnet restore
+
+# compilar
+dotnet build
+
+# ejecutar
+dotnet run
+
+# añadir paquete (instala desde repositorio NuGet.org)
+dotnet add package Microsoft.EntityFrameworkCore
+
+
+# http://localhost:5114
