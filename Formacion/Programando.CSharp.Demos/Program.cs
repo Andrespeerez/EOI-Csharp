@@ -28,7 +28,7 @@ namespace Programando.CSharp.Demos
             Int64 numero3 = 5228424589455577941;
             int otroNumero; // 0
 
-            // int es distinto de int?
+            // int? es distinto de int
             int? otroNumero2 = null; // int? permite que sea nuleable
 
             decimal a, b, c;
