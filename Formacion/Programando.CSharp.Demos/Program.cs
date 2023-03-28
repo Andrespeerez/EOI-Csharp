@@ -94,9 +94,9 @@ namespace Programando.CSharp.Demos
     public class Alumno 
     {
         // Miembro : Variables
-        private string nombre;
-        private string apellidos;
-        private int edad;
+        private string nombre = "";
+        private string apellidos = "";
+        private int edad = 0;
 
         // propiedades (dan acceso a las variables)
         public string Nombre
