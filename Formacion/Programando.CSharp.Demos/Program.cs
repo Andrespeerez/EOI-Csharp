@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Programando.CSharp.Demos
 {
@@ -6,202 +7,186 @@ namespace Programando.CSharp.Demos
     {
         public static void Main(string[] args)
         {
-            Console.Clear();
+            ArrayList();
 
-            // de tipo referencia
-            var alumno = new Alumno();
-            var alumno2 = new Alumno("Andres");
-            var alumno3 = new Alumno("Andres", "Perez", 29);
+            Hashtable();
 
-            alumno.Nombre = "Rodrigo";
-            alumno.Edad = 25;
-            alumno.Apellidos = "Diaz de Vivar";
-            Console.WriteLine($"{alumno.Nombre} {alumno.Apellidos} tiene {alumno.Edad} años");
+            List();
+
+            Dictionary();
 
         }
 
-    }
 
-    // Tipo referencia
-    public class Persona
-    {
-        public string nombre = "";
-        public int edad = 0;
-        
-    }
-
-    // Tipo valor!!!
-    public struct Persona2
-    {
-        public string nombre = "";
-        public int edad = 0;
-
-        public Persona2()
+        public static void ArrayList()
         {
+            // Instanciar
+            ArrayList array = new ArrayList();          // Lista de Objects
 
-        }
-        
-    }
+            // Limpiar y eliminar los elementos
+            array.Clear();
 
-    public class Demo
-    {
+            // Añedir elementos al array
+            array.Add(0);
+            array.Add("hola");
+            array.Add(new { Nombre = "Andres", Apellidos = "Perez" });
+            array.Add(new Alumno());
 
-        public void Transforma(ref int a, out int b)
-        {
-            Console.WriteLine($"Transformando Datos");
-            a = a * 10;
+            // Añadir los elementos de otra colección
+            var colores = new String[] { "azul", "rojo", "verde", "amarillo" };
+            array.AddRange(colores);
 
-            // al poner out debemos asignar si o si el valor antes de usar b
-            // se puede el valor que tenía de entrada sin poder usarlo
-            b = 0;
-            b = a * 20;
+            // Añadir elementos a partir de una posicion
+            array.Insert(4, "blanco");
 
-            Console.WriteLine($"Valor A : {a}");
-            Console.WriteLine($"Valor B : {b}");
+            // Numero de elementos del ArrayList
+            Console.WriteLine($"Numero de elementos : {array.Count}");
 
-        }
+            // Eliminar elementos 
+            array.Remove("amarillo");
+            array.RemoveAt(4);
+            array.RemoveRange(2, 2); // desde el 2, dos elementos
 
-        // persona es tipo referencia (class)
-        public bool Transforma(Persona p)
-        {
-            p.nombre = "Julian";
-            p.edad = 27;
+            // Saber si un elemento esta contenido
+            Console.WriteLine($"Contiene el item rojo? : {array.Contains("rojo")}");
 
-            return true;
-        }
+            // Ordenar los elementos
+            //array.Sort();
 
-        // persona 2 es tipo valor (struct)
-        public bool Transforma(Persona2 p)
-        {
-            p.nombre = "Julian";
-            p.edad = 27;
+            // Invertir el orden
 
-            return true;
-        }
-
-        // persona 2 es tipo valor (struct)
-        public bool Transforma(ref Persona2 p)
-        {
-            p.nombre = "Julian";
-            p.edad = 27;
-
-            return true;
-        }
-
-
-    }
-
-    public class Alumno 
-    {
-        // Miembro : Variables
-        private string nombre = "";
-        private string apellidos = "";
-        private int edad = 0;
-
-        // propiedades (dan acceso a las variables)
-        public string Nombre
-        {
-            get
+            //array.Reverse();
+ 
+            // Recorrer el ArrayList
+            foreach(var item in array)
             {
-                return nombre.Trim().ToLower();
+                Console.WriteLine($"Item : {item.GetType()}");
             }
 
-            set
+            for (int i = 0; i < array.Count; i++)
             {
-                this.nombre = value;
-            } 
-        }
-
-        public int Edad 
-        {
-            get { 
-                return edad; 
+                Console.WriteLine($"Item {i} : {array[i].GetType()}");
             }
 
-            set { 
-                if (value < 0 || value > 120)
-                { 
-                    this.edad = 0;
-                } else {
-                    this.edad = value;
-                }
+        }
+
+        public static void Hashtable()
+        {
+            // Instanciar
+            var ht = new Hashtable(); // Diccionario de Object/Object (clave/valor)
+
+            // Eliminar todos los elementos
+            ht.Clear();
+
+            // Añadir elementos
+            ht.Add(1200, "Andres Perez");
+            ht.Add("ANATR", "Ana Trujillo");
+            ht.Add("Alumno1", new Alumno());
+
+            // Numero de elementos
+            Console.WriteLine($"Numero de elementos : {ht.Count}");
+
+            // Eliminar elementos
+            ht.Remove(1200);
+
+            // Recorrer el Hashtable
+            foreach (var clave in ht.Keys)
+            {
+                Console.WriteLine($"{clave} : {ht[clave]}");
             }
         }
 
-        public string Apellidos
+        public static void List() 
         {
-            get => apellidos.Trim().ToLower();
-            set => this.apellidos = value;
-        }
-        
-        // esta propiedad se comporta como una variable
-        // no requiere declarar this.curso
-        public string Curso { get; set; }
+            // Crear una lista
+            List<string> list = new List<string>();
+            List<string> list1 = new();
+            var list2 = new List<string>();
 
-        public void MetodoUno()
-        {
+            // Eliminar los elementos
+            list.Clear();
 
-        }
-        
-        public int MetodoDos()
-        {
+            // Añadir elementos
+            list.Add("Hola");
+            list.Add("Andres Perez");
+            list.Add("Borja");
 
-            return 0;
-        }
+            list1.Add("naranja");
+            list1.Add("limón");
+            list1.Add("melón");
+            list1.Add("manzana");
+            list1.Add("ciruela");
 
-        public int MetodoTres(int param1 = 29, string param2 = "Borja")
-        {
-            this.nombre = param2;
-            this.edad = param1;
+            list.AddRange(new List<string>(list1));
 
+            // Obtener el número de elementos
+            Console.WriteLine($"Numero de elementos  :  {list.Count}");
 
-            return 0;
-        }
+            // Eliminar elementos
+            list.Remove("limón");
+            list.RemoveAt(3);
+            list.RemoveRange(2, 2);
 
-        public int Suma(int param1, int param2)
-        {
-            return param1+param2;
-        }
+            // Ordenar los elementos
+            list.Sort();
 
+            // Invertir el orden
+            list.Reverse();
 
-        // Miembro : Metodo o funcion constructora
-        // es publico, no tiene tipo y se llama = que la clase
-        // no se puede invocar, se ejecuta al crear el objeto
-        public Alumno()
-        {
-            this.Inicializa();
-        }
+            // Convertir un un array de Object[]
+            var nuevoarray = list.ToArray();
 
-        public Alumno(string nombre)
-        {
-            this.nombre = nombre;
-        }
+            // Recorrer el list
+            foreach (var item in nuevoarray)
+            { 
+                Console.WriteLine($" Item {list.IndexOf(item)}  :  {item}");
+            }
 
-        public Alumno(string n, string a, int e)
-        {
-            this.nombre = n;
-            this.apellidos = a;
-            this.edad = e;
+            for (var i = 0; i < list.Count; i++)
+            {
+                Console.WriteLine($" Item {i}  :  {list[i]}");
+            }
 
         }
 
-        // Miembro : metodo o funcion destructora
-        // no se puede invocar, se ejecutara automaticamente, no tiene parametros
-        ~Alumno()
+        public static void Dictionary()
         {
-            System.Diagnostics.Debug.WriteLine("Destrucción de objeto Alumno");
-            this.nombre = null;
-            this.apellidos = null;
-            
+            // Crear un diccionario
+            Dictionary<int, string> dictionary = new Dictionary<int, string>();
+            Dictionary<int, string> dictionary1 = new(); // forma nueva en net 7.0
+            var dictionary2 = new Dictionary<int, string>();
+
+            // Eliminar los elementos
+            dictionary.Clear();
+
+            // Añadir elementos
+            dictionary.Add(3, "Hola");
+            dictionary.Add(4, "Borja");
+            dictionary.TryAdd(4, "Andres");
+            dictionary.Add(5, "Ana");
+
+            // Contar elementos
+            Console.WriteLine($"Numero de elementos  :  {dictionary.Count}");
+
+            // Eliminar elemento
+            dictionary.Remove(3);
+
+            // Recorrer el diccionario
+            foreach (var item in dictionary.Keys) 
+            { 
+                Console.WriteLine($"   {item}  :  {dictionary[item]}");
+            }
+
+
         }
 
-        private void Inicializa(string nombre = "", string apellidos = "", int edad = 0)
-        {
-            this.nombre = nombre;
-            this.apellidos = apellidos;
-            this.edad = edad;
-        }
+    }
 
+    public class Alumno
+    {
+        public string Nombre { get; set; }
+        public string Apellidos { get; set; }
+        public int Edad { get; set; }
     }
 
 }
